@@ -1,7 +1,7 @@
-from flask import Flask, jsonify
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route("/")
 def homepage():
-    return jsonify({"status": "OK"})
+    return render_template("index.html")
