@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Instruments</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+
+    <style>
+        div { text-align: center;}
+        form {padding-bottom: 50px;}
+        input {margin: 0 5px 0 5px;}
+        table {
+            width:70%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .center { text-align: center; }
+        .line-div {
+            width: 100%;
+            height: 2px;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/Roster">Roster</a>
+        <a href="/Instruments">Instruments</a>
+        <a href="/Maintenance">Maintenance</a>
+        <a href="/Rentals">Rentals</a>
+    </nav>
+    <div id="header" style="margin-bottom: 40px;">
+        <h1 class="center">Instruments</h1>
+        <div class="line-div"></div>
+    </div>
+
+    <div id="updates">
+        <div id="insert-div">
+            <h2 class="center">Insert Into Instruments Table</h2>
+            <form >
+                <input type="text" id="ins-instrID-field" placeholder="Instrument ID">
+                <input type="text" id="ins-type-field" placeholder="Instrument Type">
+                <input type="text" id="ins-brand-field" placeholder="Instrument Brand">
+                <input type="submit" id="submit-insert-instrument" value="Insert">
+            </form>
+        </div>
+        <div id="update-div">
+            <h2 class="center">Update Instruments Table By ID</h2>
+            <form>
+                <input type="text" id="upd-instrID-field" placeholder="Instrument ID">
+                <input type="text" id="upd-type-field" placeholder="Updated Type">
+                <input type="text" id="upd-brand-field" placeholder="Updated Brand">
+                <input type="submit" id="submit-update-instrument" value="Update">
+            </form>
+        </div>
+        <div class="table-div" style="height: 300px; overflow:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instrument ID</th>
+                        <th>Instrument Type</th>
+                        <th>Instrument Brand</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                {% for item in items[0] %}
+                <tr>
+                    <td>{{item.instrumentid}}</td>
+                    <td>{{item.instrument_type}}</td>
+                    <td>{{item.brand}}</td>
+                    
+                    <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.instrumentid}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="line-div"></div>
+    </div>
+
+    <div id="search-div">
+        <h2 class="center">Search By ID</h2>
+        <form style="padding-bottom: 30px;">
+            <input type="text" id="search-instrID-field" placeholder="Instrument ID">
+            <input type="submit" id="submit-search-instrument" value="Search">
+        </form>
+        <div class="table-div">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instrument ID</th>
+                        <th>Instrument Type</th>
+                        <th>Instrument Brand</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                {% for item in items[2] %}
+                <tr>
+                    <td>{{item.instrumentid}}</td>
+                    <td>{{item.instrument_type}}</td>
+                    <td>{{item.brand}}</td>
+                    
+                    <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.instrumentid}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="line-div"></div>
+    </div>
+    <div id="adv-query-div">
+        <h2 class="center">Advanced Query</h2>
+        <p "text-align: center;">Finds the maintenance statistics for each instrument</p>
+        
+        <div class="table-div" style="height: 300px; overflow:auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instrument ID</th>
+                        <th>Instrument Type</th>
+                        <th>Maintenance Count</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                {% for item in items[1] %}
+                <tr>
+                    <td>{{item.instrumentid}}</td>
+                    <td>{{item.instrument_type}}</td>
+                    <td>{{item.maintCnt}}</td>
+                    <td>{{item.totCost}}</td>                    
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/instrument.js') }}"></script>
+
+</html>

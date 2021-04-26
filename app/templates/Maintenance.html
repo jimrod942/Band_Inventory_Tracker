@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Maintenance</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+
+    <style>
+        div { text-align: center;}
+        form {padding-bottom: 50px;}
+        input {margin: 0 5px 0 5px;}
+        table {
+            width:70%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .center { text-align: center; }
+        .line-div {
+            width: 100%;
+            height: 2px;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/Roster">Roster</a>
+        <a href="/Instruments">Instruments</a>
+        <a href="/Maintenance">Maintenance</a>
+        <a href="/Rentals">Rentals</a>
+    </nav>
+    <div id="header" style="margin-bottom: 40px;">
+        <h1 class="center">Maintenance</h1>
+        <div class="line-div"></div>
+    </div>
+    <div id="search-div">
+        <h2 class="center">Search By ID</h2>
+        <form>
+            <input type="text" id="sea-mainID-field" placeholder="Maintenance ID">
+            <input type="submit" id="submit-search-maintenance" value="Search">
+        </form>
+    </div>
+    <div id="table-div" style="height: 200px; overflow:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Instrument ID</th>
+                    <th>Send Date</th>
+                    <th>Return Date</th>
+                    <th>Maintenance Location</th>
+                    <th>Cost</th>
+                    <th>Maintenance ID</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for item in searchCurr %}
+            <tr>
+                <td>{{item.instrumentid}}</td>
+                <td>{{item.send_date}}</td>
+                <td>{{item.return_date}}</td>
+                <td>{{item.maintenance_location}}</td>
+                <td>{{item.cost}}</td>
+                <td>{{item.maintenance_id}}</td>
+                
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="line-div"></div>
+
+    <div id="insert-div">
+        <h2 class="center">Insert Into Maintenance Table</h2>
+        <form >
+            <input type="text" id="ins-instrID-field" placeholder="Instrument ID">
+            <input type="text" id="ins-send-field" placeholder="YYYY-MM-DD">
+            <input type="text" id="ins-return-field" placeholder="YYYY-MM-DD">
+            <input type="text" id="ins-location-field" placeholder="Location">
+            <input type="text" id="ins-cost-field" placeholder="Cost">
+            <input type="text" id="ins-mainID-field" placeholder="Maintenance ID">
+            <input type="submit" id="submit-insert-maintenance" value="Insert">
+        </form>
+    </div>
+
+    <div id="update-div">
+        <h2 class="center">Update Maintenance Table By ID</h2>
+        <form>
+            <input type="text" id="upd-instrID-field" placeholder="Updated Instrument ID">
+            <input type="text" id="upd-send-field" placeholder="Updated Send Date">
+            <input type="text" id="upd-return-field" placeholder="Updated Return Date">
+            <input type="text" id="upd-location-field" placeholder="Updated Location">
+            <input type="text" id="upd-cost-field" placeholder="Updated Cost">
+            <input type="text" id="upd-mainID-field" placeholder="Maintenance ID">
+            <input type="submit" id="submit-update-maintenance" value="Update">
+        </form>
+    </div>
+
+
+    <div id="table-div" style="height: 400px; overflow:auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Instrument ID</th>
+                    <th>Send Date</th>
+                    <th>Return Date</th>
+                    <th>Maintenance Location</th>
+                    <th>Cost</th>
+                    <th>Maintenance ID</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for item in currTableState %}
+            <tr>
+                <td>{{item.instrumentid}}</td>
+                <td>{{item.send_date}}</td>
+                <td>{{item.return_date}}</td>
+                <td>{{item.maintenance_location}}</td>
+                <td>{{item.cost}}</td>
+                <td>{{item.maintenance_id}}</td>
+                
+                <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.maintenance_id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="line-div"></div>
+
+    <div id="adv-query-div">
+        <h2 class="center">Advanced Query</h2>
+        <div id="table-div" style="height: 600px; overflow:auto; width: 800px; margin-left: auto; margin-right: auto;" >
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Number of Members that Returned Instruments</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                {% for item in advq %}
+                <tr>
+                    <td>{{item.section}}</td>
+                    <td>{{item.num_members}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/maintenance.js') }}"></script>
+
+</html>
