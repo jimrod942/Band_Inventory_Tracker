@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-from flask import Flask, render_template
-
-app = Flask(__name__)
-
-@app.route("/")
-def homepage():
-    return render_template("index.html")
-=======
 import os
 import sqlalchemy
 from flask import Flask
@@ -41,4 +32,3 @@ app = Flask(__name__)
 db = init_connection_engine()
 
 from app import routes
->>>>>>> main
