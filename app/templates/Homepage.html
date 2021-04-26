@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>TEMP HOMEPAGE</title>
+
+    <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+
+    <style>
+        div { text-align: center;}
+        form {padding-bottom: 50px;}
+        input {margin: 0 5px 0 5px;}
+        table {
+            width:70%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .center { text-align: center; }
+        .line-div {
+            width: 100%;
+            height: 2px;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/Roster">Roster</a>
+        <a href="/Instruments">Instruments</a>
+        <a href="/Maintenance">Maintenance</a>
+        <a href="/Rentals">Rentals</a>
+    </nav>
+    <h1>This is a homepage noice!</h1>
+    <div id="temp-div" style="margin-bottom: 40px;">
+        <form>
+            <input type="submit" id="temp2-btn" value="Suh dude.">
+        </form>
+    </div>
+</body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/homepage.js') }}"></script>
+
+</html>
