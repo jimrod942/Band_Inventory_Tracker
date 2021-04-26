@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>TEMP HOMEPAGE</title>
+    <title>Instrument Inventory Tracker</title>
 
     <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
@@ -11,21 +11,9 @@
 
     <style>
         div { text-align: center;}
-        form {padding-bottom: 50px;}
-        input {margin: 0 5px 0 5px;}
-        table {
-            width:70%;
-            margin: auto;
-            border-collapse: collapse;
-        }
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
+        /* nav {
+            height
+        } */
 
         .center { text-align: center; }
         .line-div {
@@ -33,22 +21,67 @@
             height: 2px;
             background-color: black;
         }
+        .btn {
+            margin: 10px 10px 10px 10px;
+            height: 60px;
+            width: 300px;
+        }
+        .div-title {
+            margin-top: 125px;
+            margin-bottom: 50px;
+        }
     </style>
 </head>
 
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/Roster">Roster</a>
-        <a href="/Instruments">Instruments</a>
-        <a href="/Maintenance">Maintenance</a>
-        <a href="/Rentals">Rentals</a>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Instrument Inventory</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Instruments">Instruments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Rentals">Rentals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Maintenance">Maintenance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Roster">Roster</a>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
-    <h1>This is a homepage noice!</h1>
-    <div id="temp-div" style="margin-bottom: 40px;">
-        <form>
-            <input type="submit" id="temp2-btn" value="Suh dude.">
-        </form>
+
+    <div class="div-title">
+        <h1>Instrument Inventory Tracker</h1>
+    </div>
+    <div id="homepage-buttons">
+        <div id="top-buttons">
+            <button class="btn btn-primary btn-lg" onclick="window.location.href='/Instruments'">Instruments</button>
+            <button class="btn btn-primary btn-lg" onclick="window.location.href='/Rentals'">Rentals</button>
+        </div>
+        <div id="bottom-buttons">
+            <button class="btn btn-primary btn-lg" onclick="window.location.href='/Maintenance'">Maintenance</button>
+            <button class="btn btn-primary btn-lg" onclick="window.location.href='/Roster'">Roster</button>
+        </div>
     </div>
 </body>
 

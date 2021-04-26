@@ -3,6 +3,10 @@ from app import app
 from app import database as db_helper
 
 SEARCH_STRING = ""
+ADMIN_KEY = 'h4rryb0u53r'
+LOGIN_USERNAME = ""
+LOGIN_PASSWORD = ""
+LOGIN_ADMIN = False
 
 #---------------------------------------------- HOMEPAGE CODE ------------------------------------------------
 
@@ -11,6 +15,61 @@ def render_page():
     """ returns rendered homepage """
 
     return render_template("Homepage.html")
+
+#---------------------------------------------- LOGIN PAGE ---------------------------------------------------
+
+@app.route("/Login")
+def login_page():
+    """ returns rendered login page """
+
+    return render_template("Login.html")
+
+
+@app.route("/login_search", methods=["POST"])
+def login_search():
+    """ checks that user exists in the database """
+
+    data = request.get_json()
+    print(data)
+
+    result = db_helper.login_search(data['username'], data['password'])
+
+    global LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN
+    
+    if result[0]:
+        LOGIN_USERNAME = data['username']
+        LOGIN_PASSWORD = data['password']
+        LOGIN_ADMIN = result[1]
+
+    print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
+
+    return LOGIN_USERNAME
+
+
+#--------------------------------------------- REGISTER PAGE -------------------------------------------------
+
+@app.route("/Register")
+def register_page():
+    return render_template("Register.html")
+
+
+@app.route("/register_insert", methods=["POST"])
+def register_insert():
+
+    data = request.get_json()
+
+    isAdmin = 0
+    if data['admin'] == ADMIN_KEY:
+        isAdmin = 1
+
+    try:
+        db_helper.register_insert(data['username'], data['password'], isAdmin)
+        result = {'success': True, 'response': 'New User Registered'}
+    except:
+        result = {'success': False, 'response': 'oopsies'}
+
+    return jsonify(result)
+
 
 #---------------------------------------------- EVAN'S CODE --------------------------------------------------
 
@@ -24,7 +83,6 @@ def delete_roster(net_id):
     except:
         result = {'success': False, 'response': 'oopsies'}
 
-    print("RESULT:\n" + result['response'], end='\n\n')
     return jsonify(result)
 
 
@@ -32,7 +90,6 @@ def delete_roster(net_id):
 def update_roster(net_id):
 
     data = request.get_json()
-    print(data)
 
     try:
         db_helper.update_roster(data['net_id'], data['first_name'], data['last_name'], data['grade'], data['section'])
@@ -40,7 +97,6 @@ def update_roster(net_id):
     except:
         result = {'success': False, 'response': 'oopsie'}
     
-    print("RESULT:\n" + result['response'], end='\n\n')
     return jsonify(result)
 
 
@@ -54,7 +110,6 @@ def insert_roster():
     except:
         result = {'success': False, 'response': 'oopsie'}
     
-    print("RESULT:\n" + result['response'], end='\n\n')
     return jsonify(result)
 
 
@@ -76,7 +131,7 @@ def roster_page():
     curr_netid = SEARCH_STRING
 
     items = db_helper.fetch_roster(net_id=curr_netid)
-    aq_items = db_helper.advanced_query()
+    aq_items = db_helper.advanced_query_roster()
 
     if curr_netid == "":
         curr_netid = "NetID"
@@ -102,7 +157,6 @@ def delete_instruments(instrumentid):
 def update_instruments(instrumentid):
 
     data = request.get_json()
-    print(data)
 
     try:
         db_helper.update_instrument(data['instrumentid'], data['instrument_type'], data['brand'])
@@ -198,7 +252,7 @@ def search_maintenance(maintenance_id):
 def maintenance_page():
     """ returns rendered homepage """
     fetchCurr = db_helper.fetch_maintenance()
-    fetchAdv = db_helper.advanced_query()
+    fetchAdv = db_helper.advanced_query_maintenance()
     return render_template("Maintenance.html", currTableState=fetchCurr, advq=fetchAdv, searchCurr=db_helper.searchRes)
 
 #-------------------------------------------------------- ANDY'S CODE -------------------------------------------------

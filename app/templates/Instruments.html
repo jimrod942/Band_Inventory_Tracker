@@ -37,13 +37,42 @@
 </head>
 
 <body>
-    <nav>
-        <a href="/">Home</a>
-        <a href="/Roster">Roster</a>
-        <a href="/Instruments">Instruments</a>
-        <a href="/Maintenance">Maintenance</a>
-        <a href="/Rentals">Rentals</a>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Instrument Inventory</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/Instruments">Instruments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Rentals">Rentals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Maintenance">Maintenance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Roster">Roster</a>
+                    </li>
+                </ul>
+            </div>
+    
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
+    
     <div id="header" style="margin-bottom: 40px;">
         <h1 class="center">Instruments</h1>
         <div class="line-div"></div>

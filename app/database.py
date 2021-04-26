@@ -1,10 +1,43 @@
 from app import db
 
 searchRes = []
+searchItems = [] #yes this is needed
 
-#\/DO WE NEED THIS JIMMY??
-searchItems = []
+#---------------------------------------------  LOGIN PAGE  ---------------------------------------------------
+def login_search(username: str, password: str) -> (bool, int):
+    conn = db.connect()
+    query = 'SELECT * FROM LoginInfo WHERE username="{}" AND password="{}"'.format(username, password)
+    queryResults = conn.execute(query).fetchall()
+    conn.close()
 
+    print('here:')
+    print(queryResults)
+
+    if len(queryResults) > 0:
+        return (True, queryResults[0][2])
+    else:
+        return (False, 0)
+
+
+#-------------------------------------------- REGISTER PAGE ---------------------------------------------------
+def register_insert(username: str, password: str, admin: int) -> None:
+    """ Adds new user to database
+    Args:
+        username (str): username to insert
+        password (str): password to insert
+        admin (int): 1 if admin, 0 else
+    
+    Returns:
+        None
+    """
+
+    conn = db.connect()
+    query = 'INSERT INTO LoginInfo VALUES ("{}", "{}", {});'.format(username, password, admin)
+    conn.execute(query)
+    conn.close()
+
+
+#--------------------------------------------- EVAN'S CODE ----------------------------------------------------
 def fetch_roster(net_id=""):
     """ Fetches information from Roster table by given net_id
 
@@ -137,7 +170,7 @@ def remove_student_by_netid(net_id):
     print("\nDELETE ROSTER QUERY:\n" + query)
 
 
-def advanced_query():
+def advanced_query_roster():
     """ Query to find all instruments that are not currently in inventory
 
     Returns:
@@ -369,7 +402,7 @@ def remove_maintenance_by_id(maintenance_id: int) -> None:
     conn.execute(query)
     conn.close()
 
-def advanced_query() -> dict:
+def advanced_query_maintenance() -> dict:
     """ Fetches results of advanced query
     
     Returns:
