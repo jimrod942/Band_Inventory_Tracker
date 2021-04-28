@@ -35,8 +35,11 @@ def register_insert(username: str, password: str, admin: int) -> None:
         None
     """
 
+    currDate = datetime.date.today()
+
     conn = db.connect()
-    query = 'INSERT INTO LoginInfo VALUES ("{}", "{}", {});'.format(username, password, admin)
+    query = 'INSERT INTO LoginInfo VALUES ("{}", "{}", {}, "{}", 1);'.format(username, password, admin, currDate)
+    print(query)
     conn.execute(query)
     conn.close()
 
