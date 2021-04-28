@@ -1,4 +1,5 @@
 from app import db
+import datetime
 
 searchRes = []
 searchItems = [] #yes this is needed
@@ -8,14 +9,17 @@ def login_search(username: str, password: str) -> (bool, int):
     conn = db.connect()
     query = 'SELECT * FROM LoginInfo WHERE username="{}" AND password="{}"'.format(username, password)
     queryResults = conn.execute(query).fetchall()
-    conn.close()
 
-    print('here:')
-    print(queryResults)
+    currDate = datetime.date.today()
 
     if len(queryResults) > 0:
+        updateSignin = 'UPDATE LoginInfo SET lastsignin="{}" WHERE username="{}"'.format(currDate, queryResults[0][0])
+        conn.execute(updateSignin)
+        conn.close()
+
         return (True, queryResults[0][2])
     else:
+        conn.close()
         return (False, 0)
 
 

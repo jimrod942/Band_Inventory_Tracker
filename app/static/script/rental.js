@@ -1,6 +1,21 @@
 $(document).ready(function () {
-    // example: https://getbootstrap.com/docs/4.2/components/modal/
-    // show modal
+    $('#signout').click(function () {
+        $.ajax({
+            type: 'POST',
+            url:'/signout',
+            contentType: 'application/json;charset=UTF-8',
+            data: JSON.stringify({
+            }),
+            success: function (res) {
+                console.log(res.response)
+                location.reload();
+            },
+            error: function () {
+                console.log('Error');
+            }
+        });
+        alert("Successfully signed out :)");
+    });
 
     $('#submit-insert-rental').click(function () {
         $.ajax({

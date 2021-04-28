@@ -13,8 +13,39 @@ LOGIN_ADMIN = False
 @app.route("/")
 def render_page():
     """ returns rendered homepage """
+    global LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN
+    print("page reloaded:")
+    print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
 
-    return render_template("Homepage.html")
+    return render_template("Homepage.html", username=LOGIN_USERNAME)
+
+
+# janky fix, sorry - jimmy
+@app.route("/?")
+def render_page_pt2_electric_boogaloo():
+    """ returns rendered homepage """
+    global LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN
+    print("page reloaded:")
+    print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
+
+    return render_template("Homepage.html", username=LOGIN_USERNAME)
+
+
+@app.route("/signout", methods=["POST"])
+def signout():
+    global LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN
+
+    print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
+
+    LOGIN_USERNAME = ""
+    LOGIN_PASSWORD = ""
+    LOGIN_ADMIN = False
+
+    print("\nsigned out:")
+    print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
+
+    return LOGIN_USERNAME
+
 
 #---------------------------------------------- LOGIN PAGE ---------------------------------------------------
 
@@ -30,7 +61,6 @@ def login_search():
     """ checks that user exists in the database """
 
     data = request.get_json()
-    print(data)
 
     result = db_helper.login_search(data['username'], data['password'])
 
@@ -41,9 +71,7 @@ def login_search():
         LOGIN_PASSWORD = data['password']
         LOGIN_ADMIN = result[1]
 
-    print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
-
-    return LOGIN_USERNAME
+    return render_template("Homepage.html", username=LOGIN_USERNAME)
 
 
 #--------------------------------------------- REGISTER PAGE -------------------------------------------------
