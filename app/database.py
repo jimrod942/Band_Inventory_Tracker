@@ -46,7 +46,10 @@ def register_insert(username: str, password: str, admin: int) -> None:
         print("\nUSERNAME ALREADY EXISTS\n")
         return
 
-    query2 = 'INSERT INTO LoginInfo VALUES ("{}", "{}", {});'.format(username, password, admin)
+    currDate = datetime.date.today()
+
+    query2 = 'INSERT INTO LoginInfo VALUES ("{}", "{}", {}, "{}", 1);'.format(username, password, admin, currDate)
+    print(query)
     conn.execute(query2)
     conn.close()
 

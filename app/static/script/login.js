@@ -8,7 +8,7 @@ $(document).ready(function () {
             }),
             success: function (res) {
                 console.log(res.response)
-                location.reload();
+                window.location.href = "/";
             },
             error: function () {
                 console.log('Error');

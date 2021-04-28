@@ -7,14 +7,15 @@ $(document).ready(function () {
             data: JSON.stringify({
             }),
             success: function (res) {
-                console.log(res.response)
-                location.reload();
+                console.log(res.response);
+                // location.reload();
+                window.location.href = "/";
+                alert("Successfully signed out :)");
             },
             error: function () {
                 console.log('Error');
             }
         });
-        alert("Successfully signed out :)");
     });
 
     $('#submit-insert-instrument').click(function () {
