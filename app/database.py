@@ -82,7 +82,7 @@ def update_roster(net_id, first_name, last_name, grade, section):
     """
 
     if net_id == "":
-        print("NO NETID FOR UPDATE")
+        print("\nNO NETID FOR UPDATE\n")
         return
     
     conn = db.connect()
@@ -122,7 +122,7 @@ def insert_new_student(net_id, first_name, last_name, grade, section):
     """
 
     if net_id == "":
-        print("NO NETID FOR INSERT")
+        print("\nNO NETID FOR INSERT\n")
         return
 
     if first_name == "":
@@ -161,10 +161,12 @@ def remove_student_by_netid(net_id):
     Returns:
         None
     """
+
     conn = db.connect()
     query = 'DELETE FROM Roster '\
             'WHERE net_id = "{n}";'.format(n=net_id)
     conn.execute(query)
+    print("\n\nHERE:" + net_id + "\n\n")
     conn.close()
 
     print("\nDELETE ROSTER QUERY:\n" + query)

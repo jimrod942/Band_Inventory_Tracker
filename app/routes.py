@@ -77,6 +77,11 @@ def register_insert():
 def delete_roster(net_id):
     """ recieved post requests for entry delete """
 
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
+
     try:
         db_helper.remove_student_by_netid(net_id)
         result = {'success': True, 'response': 'Removed student'}
@@ -88,6 +93,10 @@ def delete_roster(net_id):
 
 @app.route("/student_update/<string:net_id>", methods=['POST'])
 def update_roster(net_id):
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
 
     data = request.get_json()
 
@@ -102,6 +111,11 @@ def update_roster(net_id):
 
 @app.route("/student_insert", methods=['POST'])
 def insert_roster():
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
+
     data = request.get_json()
     
     try:
@@ -127,8 +141,12 @@ def search_roster():
 def roster_page():
     """ returns rendered homepage """
 
-    global SEARCH_STRING
+    global SEARCH_STRING, LOGIN_ADMIN
     curr_netid = SEARCH_STRING
+    admin = "false"
+
+    if LOGIN_ADMIN:
+        admin = "true"
 
     items = db_helper.fetch_roster(net_id=curr_netid)
     aq_items = db_helper.advanced_query_roster()
@@ -136,13 +154,18 @@ def roster_page():
     if curr_netid == "":
         curr_netid = "NetID"
 
-    return render_template("roster.html", items=items, curr_netid=curr_netid, aq_items=aq_items)
+    return render_template("roster.html", items=items, curr_netid=curr_netid, aq_items=aq_items, admin=admin)
 
 #----------------------------------------------------JIMMY'S CODE----------------------------------------------
 
 @app.route("/instrument_delete/<int:instrumentid>", methods=['POST'])
 def delete_instruments(instrumentid):
     """ recieved post requests for entry delete """
+
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
 
     try:
         db_helper.remove_instrument_by_id(instrumentid)
@@ -155,6 +178,10 @@ def delete_instruments(instrumentid):
 
 @app.route("/instrument_update/<int:instrumentid>", methods=['POST'])
 def update_instruments(instrumentid):
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
 
     data = request.get_json()
 
@@ -169,6 +196,11 @@ def update_instruments(instrumentid):
 
 @app.route("/instrument_insert", methods=['POST'])
 def insert_instruments():
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
+
     data = request.get_json()
     
     try:
@@ -190,15 +222,27 @@ def search_instruments(instrumentid):
 def instruments_page():
     """ returns rendered homepage """
 
+    global LOGIN_ADMIN
+    admin = "false"
+
+    if LOGIN_ADMIN:
+        admin = "true"
+
     items = db_helper.fetch_instruments()
     advQItems = db_helper.find_maintenance_stats()
-    return render_template("instruments.html", items=[items, advQItems, db_helper.searchItems])
+    return render_template("instruments.html", items=[items, advQItems, db_helper.searchItems], admin=admin)
 
 #---------------------------------------------------- ALEX'S CODE -----------------------------------------------------
 
 @app.route("/maintenance_delete/<int:maintenance_id>", methods=['POST'])
 def delete_maintenance(maintenance_id):
     """ recieved post requests for entry delete """
+
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
+
     print("deleting")
     try:
         db_helper.remove_maintenance_by_id(maintenance_id)
@@ -211,6 +255,10 @@ def delete_maintenance(maintenance_id):
 
 @app.route("/maintenance_update/<int:maintenance_id>", methods=['POST'])
 def update_maintenance(maintenance_id):
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
 
     data = request.get_json()
     print(data)
@@ -226,6 +274,11 @@ def update_maintenance(maintenance_id):
 
 @app.route("/maintenance_insert", methods=['POST'])
 def insert_maintenance():
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
+
     data = request.get_json()
     
     try:
@@ -251,15 +304,27 @@ def search_maintenance(maintenance_id):
 @app.route("/Maintenance")
 def maintenance_page():
     """ returns rendered homepage """
+
+    global LOGIN_ADMIN
+    admin = "false"
+
+    if LOGIN_ADMIN:
+        admin = "true"
+
     fetchCurr = db_helper.fetch_maintenance()
     fetchAdv = db_helper.advanced_query_maintenance()
-    return render_template("Maintenance.html", currTableState=fetchCurr, advq=fetchAdv, searchCurr=db_helper.searchRes)
+    return render_template("Maintenance.html", currTableState=fetchCurr, advq=fetchAdv, searchCurr=db_helper.searchRes, admin=admin)
 
 #-------------------------------------------------------- ANDY'S CODE -------------------------------------------------
 
 @app.route("/rental_delete/<int:rental_id>", methods=['POST'])
 def delete_rentals(rental_id):
     """ recieved post requests for entry delete """
+
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
 
     try:
         db_helper.remove_rental_by_id(rental_id)
@@ -272,6 +337,10 @@ def delete_rentals(rental_id):
 
 @app.route("/rental_update/<int:rental_id>", methods=['POST'])
 def update_rentals(rental_id):
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
 
     data = request.get_json()
     print(data)
@@ -287,6 +356,11 @@ def update_rentals(rental_id):
 
 @app.route("/rental_insert", methods=['POST'])
 def insert_rentals():
+    global LOGIN_ADMIN
+    if not LOGIN_ADMIN:
+        print("\nADMIN FAILED\n")
+        return ""
+
     data = request.get_json()
     
     print(data)
@@ -302,10 +376,17 @@ def insert_rentals():
 @app.route("/Rentals")
 def rentals_page():
     """ returns rendered homepage """
+
+    global LOGIN_ADMIN
+    admin = "false"
+
+    if LOGIN_ADMIN:
+        admin = "true"
+
     items = db_helper.fetch_rentals()
     query = db_helper.fetch_advanced_query()
     
-    return render_template("Rentals.html", items=items , sr=db_helper.searchres, aqres=query)
+    return render_template("Rentals.html", items=items , sr=db_helper.searchres, aqres=query, admin=admin)
 
 @app.route("/rental_search", methods=["POST"])
 def search_rentals():

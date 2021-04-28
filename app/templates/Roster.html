@@ -79,21 +79,20 @@
 
     <div id="insert-div" style="margin-bottom: 40px;">
         <h2 class="center">Insert Student Into Roster Table</h2>
-        <form >
+        <form onsubmit="checkAdmin()">
             <input type="text" id="ins-netID-field" placeholder="NetID">
             <input type="text" id="ins-fname-field" placeholder="First Name">
             <input type="text" id="ins-lname-field" placeholder="Last Name">
             <input type="text" id="ins-grade-field" placeholder="Grade">
             <input type="text" id="ins-section-field" placeholder="Section">
             <input type="submit" id="submit-insert-student" value="Insert">
-            <input type="submit" id="test-btn" value="Instruments">
         </form>
         <div class="line-div"></div>
     </div>
 
     <div id="update-div" style="margin-bottom: 40px;">
         <h2 class="center">Update Roster Table By NetID</h2>
-        <form>
+        <form onsubmit="checkAdmin()">
             <input type="text" id="upd-netID-field" placeholder="NetID">
             <input type="text" id="upd-fname-field" placeholder="Updated First Name">
             <input type="text" id="upd-lname-field" placeholder="Updated Last Name">
@@ -132,7 +131,7 @@
                     <td>{{item.grade}}</td>
                     <td>{{item.section}}</td>
                     
-                    <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.net_id}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+                    <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.net_id}}" type="button" onclick="checkAdmin()"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -165,6 +164,18 @@
         </div>
     </div>
 </body>
+
+<script id="placeholder-script" type="text/template">
+    {{admin}}
+</script>
+<script>
+    function checkAdmin() {
+        var adminString = $('#placeholder-script').html();
+        if (adminString.includes("false")) {
+            alert("Admin privileges are required to modify a table.");
+        }
+    }
+</script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 

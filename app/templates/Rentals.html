@@ -79,7 +79,7 @@
 
     <div id="insert-div">
         <h2 class="center">Insert Into Rentals Table</h2>
-        <form >
+        <form onsubmit="checkAdmin()">
             <input type="text" id="ins-rentID-field" placeholder="Rental ID">
             <input type="text" id="ins-instrID-field" placeholder="Instrument ID">
             <input type="text" id="ins-netID-field" placeholder="Net ID">
@@ -92,7 +92,7 @@
 
     <div id="update-div">
         <h2 class="center">Update Rentals Table By Rental ID</h2>
-        <form>
+        <form onsubmit="checkAdmin()">
             <input type="text" id="upd-rentID-field" placeholder="Rental ID">
             <input type="text" id="upd-instrID-field" placeholder="Updated Instrument ID">
             <input type="text" id="upd-netID-field" placeholder="Updated Net ID">
@@ -158,7 +158,7 @@
                     <td>{{item.date_out}}</td>
                     <td>{{item.date_in}}</td>
                     
-                    <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.rental_id }}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+                    <td><button class="btn btn-outline-secondary btn-sm remove" data-source="{{item.rental_id }}" type="button" onclick="checkAdmin()"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -190,6 +190,18 @@
         </div>
     </div>
 </body>
+
+<script id="placeholder-script" type="text/template">
+    {{admin}}
+</script>
+<script>
+    function checkAdmin() {
+        var adminString = $('#placeholder-script').html();
+        if (adminString.includes("false")) {
+            alert("Admin privileges are required to modify a table.");
+        }
+    }
+</script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
