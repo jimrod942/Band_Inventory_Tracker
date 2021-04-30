@@ -23,11 +23,11 @@ def init_connection_engine():
             username=os.environ.get('MYSQL_USER'),
             password=os.environ.get('MYSQL_PASSWORD'),
             database=os.environ.get('MYSQL_DB'),
-            host=os.environ.get('MYSQL_HOST'),
+            #host=os.environ.get('MYSQL_HOST'),
             query={
             "unix_socket": "{}/{}".format(
                 "/cloudsql",
-                "My First Project:us-central1-f:wheelies")
+                "primeval-pixel-307108:us-central1:wheelies")
             }
         )
     )
