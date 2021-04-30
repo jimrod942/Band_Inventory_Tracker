@@ -6,6 +6,10 @@ searchItems = [] #yes this is needed
 
 #---------------------------------------------  LOGIN PAGE  ---------------------------------------------------
 def login_search(username: str, password: str) -> (bool, int):
+    if username == "" or password == "":
+        print("\nEMPTY USERNAME/PASSWORD\n")
+        return (False, 0)
+
     conn = db.connect()
     query = 'SELECT * FROM LoginInfo WHERE username="{}" AND password="{}"'.format(username, password)
     queryResults = conn.execute(query).fetchall()
@@ -37,14 +41,14 @@ def register_insert(username: str, password: str, admin: int) -> None:
 
     if username == "" or password == "":
         print("\nUSERNAME OR PASSWORD BLANK\n")
-        return
+        return False
 
     conn = db.connect()
     query1 = 'SELECT username FROM LoginInfo WHERE username = "{u}";'.format(u=username)
     results = conn.execute(query1).fetchall()
     if results:
         print("\nUSERNAME ALREADY EXISTS\n")
-        return
+        return False
 
     currDate = datetime.date.today()
 
@@ -52,6 +56,8 @@ def register_insert(username: str, password: str, admin: int) -> None:
     #print(query)
     conn.execute(query2)
     conn.close()
+
+    return True
 
 #--------------------------------------------Homepage Stored Procedure----------------------------------------
 

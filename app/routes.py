@@ -61,8 +61,11 @@ def login_search():
         LOGIN_USERNAME = data['username']
         LOGIN_PASSWORD = data['password']
         LOGIN_ADMIN = result[1]
+        result = {'success': True, 'response': 'New User Registered'}
+    else:
+        result = {'success': False, 'response': 'oopsies'}
 
-    return render_template("Homepage.html", username=LOGIN_USERNAME)
+    return jsonify(result)
 
 
 #--------------------------------------------- REGISTER PAGE -------------------------------------------------
@@ -82,9 +85,13 @@ def register_insert():
         isAdmin = 1
 
     try:
-        db_helper.register_insert(data['username'], data['password'], isAdmin)
-        result = {'success': True, 'response': 'New User Registered'}
+        res = db_helper.register_insert(data['username'], data['password'], isAdmin)
     except:
+        res = False
+    
+    if res:
+        result = {'success': True, 'response': 'New User Registered'}
+    else:
         result = {'success': False, 'response': 'oopsies'}
 
     return jsonify(result)

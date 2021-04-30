@@ -29,7 +29,7 @@ $(document).ready(function () {
             }),
             success: function (res) {
                 console.log(res.response)
-                location.reload();
+                window.location.href="/Login";
             },
             error: function () {
                 console.log('Error');
