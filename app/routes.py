@@ -173,7 +173,7 @@ def roster_page():
     if curr_netid == "":
         curr_netid = "NetID"
 
-    return render_template("roster.html", items=items, curr_netid=curr_netid, aq_items=aq_items, admin=admin)
+    return render_template("Roster.html", items=items, curr_netid=curr_netid, aq_items=aq_items, admin=admin)
 
 #----------------------------------------------------JIMMY'S CODE----------------------------------------------
 
@@ -249,7 +249,7 @@ def instruments_page():
         
     items = db_helper.fetch_instruments()
     advQItems = db_helper.find_maintenance_stats()
-    return render_template("instruments.html", items=[items, advQItems, db_helper.searchItems], admin=admin)
+    return render_template("Instruments.html", items=[items, advQItems, db_helper.searchItems], admin=admin)
 
 #---------------------------------------------------- ALEX'S CODE -----------------------------------------------------
 
