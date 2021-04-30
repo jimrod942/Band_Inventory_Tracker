@@ -16,16 +16,21 @@ def init_connection_engine():
         for var in env_variables:
             os.environ[var] = env_variables[var]
 
+    # remove query variable to run locally
     pool = sqlalchemy.create_engine(
         sqlalchemy.engine.url.URL(
             drivername="mysql+pymysql",
             username=os.environ.get('MYSQL_USER'),
             password=os.environ.get('MYSQL_PASSWORD'),
             database=os.environ.get('MYSQL_DB'),
-            host=os.environ.get('MYSQL_HOST')
+            host=os.environ.get('MYSQL_HOST'),
+            query={
+            "unix_socket": "{}/{}".format(
+                "/cloudsql",
+                "My First Project:us-central1-f:wheelies")
+            }
         )
     )
-
     return pool
 
 app = Flask(__name__)
