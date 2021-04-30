@@ -49,9 +49,56 @@ def register_insert(username: str, password: str, admin: int) -> None:
     currDate = datetime.date.today()
 
     query2 = 'INSERT INTO LoginInfo VALUES ("{}", "{}", {}, "{}", 0);'.format(username, password, admin, currDate)
-    print(query)
+    #print(query)
     conn.execute(query2)
     conn.close()
+
+#--------------------------------------------Homepage Stored Procedure----------------------------------------
+
+
+def fetch_unreturnedRentals() -> dict:
+    conn = db.connect()
+    query_results = conn.execute("SELECT * FROM unreturnedRentals ORDER BY rental_id;").fetchall()
+    conn.close()
+    rental_list = []
+    for result in query_results:
+        item = {
+            "rental_id": result[0],
+            "net_id": result[1]
+        }
+        rental_list.append(item)
+
+    return rental_list
+
+def fetch_uupperclassmen() -> dict:
+    conn = db.connect()
+    query_results = conn.execute("SELECT * FROM SectionSeniors ORDER BY Section;").fetchall()
+    conn.close()
+    senior_list = []
+    for result in query_results:
+        item = {
+            "section": result[0],
+            "net_id": result[1]
+        }
+        senior_list.append(item)
+
+    return senior_list
+
+def fetch_numberRepairs() -> dict:
+    conn = db.connect()
+    query_results = conn.execute("SELECT * FROM NumberRepairs ORDER BY repairs DESC;").fetchall()
+    conn.close()
+    repair_list = []
+    for result in query_results:
+        item = {
+            "instrument_id": result[0],
+            "instrument_type": result[1],
+            "brand": result[2],
+            "num": result[3]
+        }
+        repair_list.append(item)
+
+    return repair_list
 
 
 #--------------------------------------------- EVAN'S CODE ----------------------------------------------------

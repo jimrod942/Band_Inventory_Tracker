@@ -11,6 +11,19 @@
 
     <style>
         div { text-align: center;}
+        table {
+            width:70%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
 
         .center { text-align: center; }
         .line-div {
@@ -92,6 +105,80 @@
             <button class="btn btn-primary btn-lg" onclick="window.location.href='/Roster'">Roster</button>
         </div>
     </div>
+
+    <div id="unreturned-div"   >
+        <h2 class="center">Unreturned Instruments (Seniors)</h2>
+        <div id='table1-div' style="height: 400px; overflow:auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rental ID</th>
+                        <th>Net ID</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for r in unreturned %}
+                <tr>
+                    <td>{{r.rental_id}}</td>
+                    <td>{{r.net_id}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="upperclassmen-div"   >
+        <h2 class="center">Upperclassmen to Contact</h2>
+        <div id='table1-div' style="height: 400px; overflow:auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Net ID</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for r in seniors %}
+                <tr>
+                    <td>{{r.section}}</td>
+                    <td>{{r.net_id}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="numberRepairs-div"   >
+        <h2 class="center">Number of Repairs per Instrument</h2>
+        <div id='table1-div' style="height: 400px; overflow:auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Instrument ID</th>
+                        <th>Instrument Type</th>
+                        <th>Brand</th>
+                        <th>No. Repairs</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for r in reps %}
+                <tr>
+                    <td>{{r.instrument_id}}</td>
+                    <td>{{r.instrument_type}}</td>
+                    <td>{{r.brand}}</td>
+                    <td>{{r.num}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
