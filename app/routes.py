@@ -250,12 +250,12 @@ def search_instruments(instrumentid):
 def instruments_page():
     """ returns rendered homepage """
 
-    global LOGIN_ADMIN
+    global LOGIN_ADMIN, LOGIN_USERNAME
     admin = "false"
 
     if LOGIN_ADMIN:
         admin = "true"
-
+        
     items = db_helper.fetch_instruments()
     advQItems = db_helper.find_maintenance_stats()
     return render_template("instruments.html", items=[items, advQItems, db_helper.searchItems], admin=admin)

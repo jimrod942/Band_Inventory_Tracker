@@ -65,13 +65,13 @@
                 </ul>
             </div>
     
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <div id="div-nav-right" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Login">Log In</a>
+                        <a id="login-btn" class="nav-link" href="/Login">Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Register">Register</a>
+                        <a id="register-btn" class="nav-link" href="/Register">Register</a>
                     </li>
                     <li class="nav-item">
                         <button id="signout" class="nav-link">Sign Out</button>
@@ -195,17 +195,17 @@
     </div>
 </body>
 
-<script id="placeholder-script" type="text/template">
-    {{admin}}
-</script>
-<script>
-    function checkAdmin() {
-        var adminString = $('#placeholder-script').html();
-        if (adminString.includes("false")) {
-            alert("Admin privileges are required to modify a table.");
+    <script id="placeholder-script" type="text/template">
+        {{admin}}
+    </script>
+    <script>
+        function checkAdmin() {
+            var adminString = $('#placeholder-script').html();
+            if (adminString.includes("false")) {
+                alert("Admin privileges are required to modify a table.");
+            }
         }
-    }
-</script>
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
