@@ -10,25 +10,16 @@ LOGIN_ADMIN = False
 
 #---------------------------------------------- HOMEPAGE CODE ------------------------------------------------
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def render_page():
     """ returns rendered homepage """
     global LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN
     print("page reloaded:")
     print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
 
-    return render_template("Homepage.html", username=LOGIN_USERNAME)
+ 
 
-
-# janky fix, sorry - jimmy
-@app.route("/?")
-def render_page_pt2_electric_boogaloo():
-    """ returns rendered homepage """
-    global LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN
-    print("page reloaded:")
-    print(LOGIN_USERNAME, LOGIN_PASSWORD, LOGIN_ADMIN)
-
-    return render_template("Homepage.html", username=LOGIN_USERNAME)
+    return render_template("Homepage.html", username=LOGIN_USERNAME, unreturned = db_helper.fetch_unreturnedRentals(), seniors = db_helper.fetch_uupperclassmen(), reps = db_helper.fetch_numberRepairs())
 
 
 @app.route("/signout", methods=["POST"])
